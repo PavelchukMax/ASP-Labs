@@ -1,0 +1,17 @@
+﻿{
+	"Lib": {
+		"Books": [
+			{"name": "The Hobbit","author": "J.R.R.Tolkien"},
+			{"name": "Warcraft Day of the Dragon","author": "Richard A. Knaak"},
+			{"name": "Warcraft Lord of the Clans","author": "Christie Golden"},
+			{"name": "Robinson Crusoe","author": "Daniel Defoe"},
+			{"name": "Sherlock Holmes","author": "Sir Arthur Ignatius Conan Doyle"}
+		],
+		"Profiles": [
+			{"firstname": "Yaroslav", "lastname": "Popov" },
+			{"firstname": "Maxim", "lastname": "Pavelchuk" },
+			{"firstname": "Alina", "lastname": "Chudoliy" },
+			{"firstname": "Denis", "lastname": "Tcapok" }
+		]
+	}
+}
