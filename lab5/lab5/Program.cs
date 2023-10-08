@@ -1,7 +1,4 @@
 using lab5;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "log.txt"));
@@ -23,17 +20,14 @@ app.MapGet("/add", async context =>
     await context.Response.WriteAsync($"<h1>Додайте дані</h1>");
     await context.Response.WriteAsync($"<form id=\"dataform\" action=\"/set-data\" method=\"post\">");
     await context.Response.WriteAsync($"<div>");
-    await context.Response.WriteAsync($"<label for=\"valueIn\">Значення:</label>");
+    await context.Response.WriteAsync($"<label>Значення:</label>");
     await context.Response.WriteAsync($"<input type=\"text\" id=\"valueIn\" name=\"valueIn\" required>");
-    await context.Response.WriteAsync($"</div>");
-    await context.Response.WriteAsync($"<div>");
-    await context.Response.WriteAsync($"<label for=\"destroyDate\">Дата видалення даних:</label>");
+    await context.Response.WriteAsync($"<label>Дата видалення даних:</label>");
     await context.Response.WriteAsync($"<input type=\"localDatetime\" id=\"destroyDate\" name=\"destroyDate\" required>");
-    await context.Response.WriteAsync($"</div>");
-    await context.Response.WriteAsync($"<div>");
     await context.Response.WriteAsync($"<button type=\"submit\">Додати</button>");
     await context.Response.WriteAsync($"</div>");
-    
+    await context.Response.WriteAsync($"</form>");
+
 });
 app.MapPost("/set-data", async context =>
 {
@@ -43,7 +37,7 @@ app.MapPost("/set-data", async context =>
     if (DateTime.Parse(destroyDate) < DateTime.Now)
     {
         await context.Response.WriteAsync($"<p>Значення \"{value}\" не було збережено, бо дата життя даних була вичерпана.</p>");
-        throw new ApplicationException("Wrong expiration date for data");
+        throw new ApplicationException("Wrong destroy date for data");
     }
     if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(destroyDate) && DateTime.TryParse(destroyDate, out var destroy))
     {
@@ -61,7 +55,7 @@ app.MapPost("/set-data", async context =>
     }
     else
     {
-    await context.Response.WriteAsync("Помилка: Не вдалося зберегти дані");
+        await context.Response.WriteAsync("Помилка: Не вдалося зберегти дані");
         await context.Response.WriteAsync("<a href='/'>Home</a>"); 
         await context.Response.WriteAsync("<a href='/add'>add new data</a>");
     }
