@@ -8,8 +8,8 @@ app.MapGet("/", async context =>
 {
     context.Response.ContentType = "text/html;charset=utf-8";
     await context.Response.WriteAsync($"<div>");
-    await context.Response.WriteAsync($"<p><a href='/add'>Додання даних</a></p>");
-    await context.Response.WriteAsync($"<p><a href='/check'>Перевірка даних</a></p>");
+    await context.Response.WriteAsync($"<p><a href='/add'>Р”РѕРґР°РЅРЅСЏ РґР°РЅРёС…</a></p>");
+    await context.Response.WriteAsync($"<p><a href='/check'>РџРµСЂРµРІС–СЂРєР° РґР°РЅРёС…</a></p>");
     await context.Response.WriteAsync($"</div>");
 
 });
@@ -17,14 +17,14 @@ app.MapGet("/", async context =>
 app.MapGet("/add", async context =>
 {
     context.Response.ContentType = "text/html;charset=utf-8";
-    await context.Response.WriteAsync($"<h1>Додайте дані</h1>");
+    await context.Response.WriteAsync($"<p>Р”РѕРґР°Р№С‚Рµ РґР°РЅС–</p>");
     await context.Response.WriteAsync($"<form id=\"dataform\" action=\"/set-data\" method=\"post\">");
     await context.Response.WriteAsync($"<div>");
-    await context.Response.WriteAsync($"<label>Значення:</label>");
+    await context.Response.WriteAsync($"<label>Р—РЅР°С‡РµРЅРЅСЏ:</label>");
     await context.Response.WriteAsync($"<input type=\"text\" id=\"valueIn\" name=\"valueIn\" required>");
-    await context.Response.WriteAsync($"<label>Дата видалення даних:</label>");
+    await context.Response.WriteAsync($"<label>Р”Р°С‚Р° РІРёРґР°Р»РµРЅРЅСЏ РґР°РЅРёС…:</label>");
     await context.Response.WriteAsync($"<input type=\"localDatetime\" id=\"destroyDate\" name=\"destroyDate\" required>");
-    await context.Response.WriteAsync($"<button type=\"submit\">Додати</button>");
+    await context.Response.WriteAsync($"<button type=\"submit\">Г„Г®Г¤Г ГІГЁ</button>");
     await context.Response.WriteAsync($"</div>");
     await context.Response.WriteAsync($"</form>");
 
@@ -36,7 +36,9 @@ app.MapPost("/set-data", async context =>
     var destroyDate = context.Request.Form["destroyDate"];
     if (DateTime.Parse(destroyDate) < DateTime.Now)
     {
-        await context.Response.WriteAsync($"<p>Значення \"{value}\" не було збережено, бо дата життя даних була вичерпана.</p>");
+        await context.Response.WriteAsync($"<p>Р—РЅР°С‡РµРЅРЅСЏ \"{value}\"РЅРµ Р±СѓР»Рѕ Р·Р±РµСЂРµР¶РµРЅРѕ, Р±Рѕ РґР°С‚Р° Р¶РёС‚С‚СЏ РґР°РЅРёС… Р±СѓР»Р° РІРёС‡РµСЂРїР°РЅР°.</p>");
+        await context.Response.WriteAsync($"<a href='/'>Р”РѕРґРѕРјСѓ</a> <br/>");
+        await context.Response.WriteAsync("<a href='/add'>Р”РѕРґР°С‚Рё РЅРѕРІС– РґР°РЅС–</a>");
         throw new ApplicationException("Wrong destroy date for data");
     }
     if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(destroyDate) && DateTime.TryParse(destroyDate, out var destroy))
@@ -49,15 +51,15 @@ app.MapPost("/set-data", async context =>
 
         context.Response.Cookies.Append("datas", value, options);
 
-        await context.Response.WriteAsync($"<p>Значення \"{value}\" було збережено.</p>");
-        await context.Response.WriteAsync($"<a href='/'>Home</a> <br/>");
-        await context.Response.WriteAsync("<a href='/add'>add new data</a>");
+        await context.Response.WriteAsync($"<p>Р—РЅР°С‡РµРЅРЅСЏ \"{value}\" Р±СѓР»Рѕ Р·Р±РµСЂРµР¶РµРЅРѕ.</p>");
+        await context.Response.WriteAsync($"<a href='/'>Р”РѕРґРѕРјСѓ</a> <br/>");
+        await context.Response.WriteAsync("<a href='/add'>Р”РѕРґР°С‚Рё РЅРѕРІС– РґР°РЅС–</a>");
     }
     else
     {
-        await context.Response.WriteAsync("Помилка: Не вдалося зберегти дані");
-        await context.Response.WriteAsync("<a href='/'>Home</a>"); 
-        await context.Response.WriteAsync("<a href='/add'>add new data</a>");
+        await context.Response.WriteAsync("РџРѕРјРёР»РєР°: РќРµ РІРґР°Р»РѕСЃСЏ Р·Р±РµСЂРµРіС‚Рё РґР°РЅС–");
+        await context.Response.WriteAsync("<a href='/'>Р”РѕРґРѕРјСѓ</a>"); 
+        await context.Response.WriteAsync("<a href='/add'>Р”РѕРґР°С‚Рё РЅРѕРІС– РґР°РЅС–</a>");
     }
 });
 
@@ -66,11 +68,11 @@ app.MapGet("/check", async context =>
     context.Response.ContentType = "text/html;charset=utf-8";
     if (context.Request.Cookies.TryGetValue("datas", out var value))
     {
-        await context.Response.WriteAsync($"Данні: {value}.");
+        await context.Response.WriteAsync($"Р”Р°РЅРЅС–: {value}.");
     }
     else
     {
-        await context.Response.WriteAsync($"Немає збережених данних.");
+        await context.Response.WriteAsync($"РќРµРјР°С” Р·Р±РµСЂРµР¶РµРЅРёС… РґР°РЅРЅРёС….");
         throw new ApplicationException("No data");
     }
 });
