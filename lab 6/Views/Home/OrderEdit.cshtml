@@ -1,0 +1,31 @@
+﻿﻿@using lab_6.ViewModels
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model OrderV
+<h2>Edit Order</h2>
+<ul>
+    <form asp-action="OrderEdit" method="post">
+        @for (var i = 0; i < Model.Products.Count(); i++)
+        {
+            var item = Model.Products.ElementAt(i);
+            if (item != null)
+            {
+                <div class="form-group">
+                    <label asp-for="@item.NameTovar">Назва товару</label>
+                    <input asp-for="@item.NameTovar" name="Products[@i].NameTovar" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@item.DescrTovar">Опис товару</label>
+                    <textarea asp-for="@item.DescrTovar" name="Products[@i].DescrTovar" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>ФІО замовника</label>
+                    <input type="text" class="form-control" value="@item.User.Name" disabled />
+                </div>
+            }
+        }
+        <button style="width:100%" type="submit" class="btn btn-primary">Обновити замовлення</button>
+    </form>
+
+</ul>

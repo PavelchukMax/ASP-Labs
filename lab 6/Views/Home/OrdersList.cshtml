@@ -1,0 +1,26 @@
+﻿@using lab_6.ViewModels
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model OrderV
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ід замовлення</th>
+            <th>ФІО покупця</th>
+            <th>Назва товару</th>
+            <th>Опис товару</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Products)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.User.Name</td>
+                <td>@order.NameTovar</td>
+                <td>@order.DescrTovar</td>
+            </tr>
+        }
+    </tbody>
+</table>
