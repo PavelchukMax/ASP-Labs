@@ -1,0 +1,18 @@
+﻿@model FileController
+<form method="post">
+    <div>
+        <label for="firstName" class="form-label">Ім'я</label>
+        <input type="text" class="form-control" name="firstName" id="firstName" required>
+    </div>
+    <div>
+        <label for="lastName" class="form-label">Прізвище</label>
+        <input type="text" class="form-control" name="lastName" id="lastName" required>
+    </div>
+    <div>
+        <label for="fileName" class="form-label">Назва файлу</label>
+        <input type="text" class="form-control" name="fileName" id="fileName" required>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Завантажити</button>
+    </div>
+</form>
