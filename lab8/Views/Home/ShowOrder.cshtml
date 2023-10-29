@@ -1,0 +1,68 @@
+﻿@using lab8.ViewModels.HomeViewModels
+@model ShowOrdersViewModel
+<div class="container">
+    <h1>Products</h1>
+
+    <form action="ShowOrder">
+        <div class="form-group">
+            <label for="viewSelect">View:</label>
+            <select asp-for=ShowStyle class="form-control" id="viewSelect">
+                <option value="@ShowStyles.List">List View</option>
+                <option value="@ShowStyles.Table">Table View</option>
+            </select>
+
+        </div>
+        <button style="width:100%;margin-top: 15px" type="submit" class="btn btn-primary btn-block">Change view</button>
+    </form>
+    @if (Model.ShowStyle == ShowStyles.List)
+    {
+        <div id="productsList" class="list-view">
+            <ul class="list-group">
+                @foreach (var product in Model.Orders)
+                {
+                    <form method="post" action="DeleteOrder">
+                    <input type="hidden" name="showStyle" value="@Model.ShowStyle" />
+                    <input type="hidden" name="Id" value="@product.OrderId" />
+                    <li class="list-group-item">
+                            @product.OrderId. @product.OrderName - @product.OrderPrice$ (@product.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"))
+                        <button style="background:red" type="submit" class="btn btn-primary btn-block">X</button>
+                    </li>
+                    </form>
+                }
+            </ul>
+        </div>
+    }
+    @if (Model.ShowStyle == ShowStyles.Table)
+    {
+    <div id="productsTable" class="table-view">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Orders)
+                {
+                    <form action="DeleteOrder">
+                            <input type="hidden" name="showStyle" value="@Model.ShowStyle" />
+                            <input type="hidden" name="Id" value="@product.OrderId" />
+                    <tr>
+                            <th>@product.OrderId</th>
+                            <th>@product.OrderName</th>
+                            <th>@product.OrderPrice$</th>
+                            <th>@product.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</th>
+                            <th>
+                                <button style="background:red" type="submit" class="btn btn-primary btn-block">X</button>
+                            </th>
+                    </tr>
+                    </form>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
