@@ -1,0 +1,18 @@
+﻿@model List<FormModel>
+
+
+<h2>Registration Successful</h2>
+
+<p>Дякуємо за реєстрацію. Ось ваші зареєстровані дані:</p>
+
+<ul>
+    @foreach (var registration in Model)
+    {
+        <li>
+            <strong>Ім'я прізвище:</strong> @registration.Name<br />
+            <strong>Email:</strong> @registration.Email<br />
+            <strong>Бажана дата консультації:</strong> @registration.Data_consult.ToString("yyyy-MM-dd")<br />
+            <strong>Обрана консультація:</strong> @registration.Type_consult
+        </li>
+    }
+</ul>

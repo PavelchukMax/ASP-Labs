@@ -1,0 +1,32 @@
+﻿@using lab_10.enums
+@model lab_10.Models.FormModel
+
+<form asp-controller="Home" asp-action="Register" method="post">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Data_consult"></label>
+        <input asp-for="Data_consult" type="date" />
+        <span asp-validation-for="Data_consult"></span>
+    </div>
+
+    <div>
+        <label asp-for="Type_consult"></label>
+        <select asp-for="Type_consult" asp-items="Html.GetEnumSelectList<ConsultationTypeEnum>()">
+            <option value="">Оберіть Консультацію</option>
+        </select>
+        <span asp-validation-for="Type_consult"></span>
+    </div>
+
+    <button type="submit">Register</button>
+</form>
