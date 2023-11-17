@@ -1,0 +1,14 @@
+﻿@model string[]
+
+@{
+    ViewData["Title"] = "View Logs";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<ul>
+    @foreach (var log in Model)
+    {
+        <li>@log</li>
+    }
+</ul>
